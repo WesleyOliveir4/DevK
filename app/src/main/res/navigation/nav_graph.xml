@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment3">
+    <fragment
+        android:id="@+id/homeFragment3"
+        android:name="com.example.devk.ui.Fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment3_to_createNotesFragment3"
+            app:destination="@id/createNotesFragment3" />
+        <action
+            android:id="@+id/action_homeFragment3_to_editNotesFragment2"
+            app:destination="@id/editNotesFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNotesFragment3"
+        android:name="com.example.devk.ui.Fragments.CreateNotesFragment"
+        android:label="fragment_create_notes"
+        tools:layout="@layout/fragment_create_notes" >
+        <action
+            android:id="@+id/action_createNotesFragment3_to_homeFragment3"
+            app:destination="@id/homeFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/editNotesFragment2"
+        android:name="com.example.devk.ui.Fragments.EditNotesFragment"
+        android:label="fragment_edit_notes"
+        tools:layout="@layout/fragment_edit_notes" >
+        <action
+            android:id="@+id/action_editNotesFragment2_to_homeFragment3"
+            app:destination="@id/homeFragment3" />
+    </fragment>
+</navigation>
