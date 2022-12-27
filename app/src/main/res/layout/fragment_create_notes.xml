@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="#272626"
-    android:layout_height="match_parent"
-    tools:context=".ui.Fragments.CreateNotesFragment">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +19,7 @@
             android:background="@drawable/edt_text_shape"
             android:padding="15dp"
             android:maxLines="1"
+            android:id="@+id/edtTitle"
             android:layout_marginTop="10dp"
             android:hint="Titulo..."
             android:textColorHint="@color/white"/>
@@ -30,6 +30,7 @@
             android:background="@drawable/edt_text_shape"
             android:maxLines="1"
             android:padding="15dp"
+            android:id="@+id/edtSubTitle"
             android:layout_marginTop="10dp"
             android:hint="Sub titulo..."
             android:textColorHint="@color/white"/>
@@ -44,18 +45,21 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="20dp"
+            android:id="@+id/optRed"
             android:background="@drawable/red_dot"/>
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
+                android:id="@+id/optYellow"
                 android:background="@drawable/yellow_dot"/>
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
+                android:id="@+id/optGreen"
                 android:background="@drawable/green_dot"/>
 
         </LinearLayout>
@@ -67,6 +71,7 @@
             android:background="@drawable/edt_text_shape"
             android:padding="15dp"
             android:gravity="start"
+            android:id="@+id/edtNotes"
             android:layout_marginTop="10dp"
             android:hint="Texto..."
             android:textColorHint="@color/white"/>
@@ -75,7 +80,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnSaveNotes"
+        android:id="@+id/btnEditSaveNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
