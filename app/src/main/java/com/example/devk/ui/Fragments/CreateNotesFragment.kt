@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import com.example.devk.Model.Notes
 import com.example.devk.R
 import com.example.devk.ViewModel.NotesViewModel
@@ -74,6 +75,8 @@ class CreateNotesFragment : Fragment() {
         viewModel.addNotes(notesFinish)
 
         Toast.makeText(activity,"Documento salvo",Toast.LENGTH_SHORT).show()
+
+        Navigation.findNavController((it!!)).navigate(R.id.action_createNotesFragment3_to_homeFragment)
     }
 
     private fun applyPriorityColor(imgView: ImageView) {

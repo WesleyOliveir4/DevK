@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/createNotesFragment"
         android:name="com.example.devk.ui.Fragments.CreateNotesFragment"
-        android:label="fragment_create_notes"
+        android:label="Add new Notes"
         tools:layout="@layout/fragment_create_notes" >
         <action
             android:id="@+id/action_createNotesFragment3_to_homeFragment"
@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/editNotesFragment"
         android:name="com.example.devk.ui.Fragments.EditNotesFragment"
-        android:label="fragment_edit_notes"
+        android:label="Edit Notes"
         tools:layout="@layout/fragment_edit_notes" >
         <action
             android:id="@+id/action_editNotesFragment_to_homeFragment"
