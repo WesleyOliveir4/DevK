@@ -45,21 +45,21 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:id="@+id/optRed"
+                android:id="@+id/optEditRed"
                 android:background="@drawable/red_dot"/>
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:id="@+id/optYellow"
+                android:id="@+id/optEditYellow"
                 android:background="@drawable/yellow_dot"/>
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:id="@+id/optGreen"
+                android:id="@+id/optEditGreen"
                 android:background="@drawable/green_dot"/>
 
         </LinearLayout>
