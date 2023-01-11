@@ -2,10 +2,9 @@ package com.example.devk.ui.Fragments
 
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +15,7 @@ import com.example.devk.R
 import com.example.devk.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentCreateNotesBinding
 import com.example.devk.databinding.FragmentEditNotesBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
 
 class EditNotesFragment: Fragment() {
@@ -32,6 +32,7 @@ class EditNotesFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEditNotesBinding.inflate(layoutInflater , container, false)
+        setHasOptionsMenu(true)
 
         binding.edtTitle.setText(oldNotes.data.title)
         binding.edtSubTitle.setText(oldNotes.data.subTitle)
@@ -101,10 +102,37 @@ class EditNotesFragment: Fragment() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     private fun applyPriorityColor (imgView: ImageView) {
         binding.optEditGreen.setImageResource(0)
         binding.optEditYellow.setImageResource(0)
         binding.optEditRed.setImageResource(0)
         imgView.setImageResource(R.drawable.ic_check)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+            val bottomSheet: BottomSheetDialog = BottomSheetDialog(requireContext(),R.style.BottomSheetStyle)
+            bottomSheet.setContentView(R.layout.dialog_delete)
+
+            val textviewYes=bottomSheet.findViewById<TextView>(R.id.dialog_yes)
+            val textviewNo=bottomSheet.findViewById<TextView>(R.id.dialog_no)
+
+        textviewYes?.setOnClickListener{
+            viewModel.deleteNotes(oldNotes.data.id!!)
+            bottomSheet.dismiss()
+
+        }
+        textviewNo?.setOnClickListener{
+            bottomSheet.dismiss()
+        }
+
+            bottomSheet.show()
+
+        return super.onOptionsItemSelected(item)
     }
 }
