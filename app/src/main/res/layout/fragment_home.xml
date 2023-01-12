@@ -11,24 +11,16 @@
         android:layout_height="match_parent">
 
 
-        <LinearLayout
-            android:id="@+id/filtro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/allNotes"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/ic_filtro"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 />
             <TextView
                 android:id="@+id/filterHigh"
@@ -43,6 +35,9 @@
                 android:background="@drawable/btn_filtro_shape"
                 android:fontFamily="sans-serif-medium"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toEndOf="@+id/allNotes"
+                app:layout_constraintTop_toTopOf="parent"
                 android:text="High"/>
 
             <TextView
@@ -58,6 +53,10 @@
                 android:background="@drawable/btn_filtro_shape"
                 android:fontFamily="sans-serif-medium"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toEndOf="@+id/filterHigh"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/filterLow"
                 android:text="Medium"/>
 
             <TextView
@@ -73,9 +72,14 @@
                 android:background="@drawable/btn_filtro_shape"
                 android:fontFamily="sans-serif-medium"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toEndOf="@+id/filterMedium"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="30dp"
                 android:text="Low"/>
 
-        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvAllNotes"
@@ -86,7 +90,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/filtro"/>
+            app:layout_constraintTop_toBottomOf="@+id/filterMedium"/>
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
