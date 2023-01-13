@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import com.example.devk.MainActivity
 import com.example.devk.Model.Notes
 import com.example.devk.R
 import com.example.devk.ViewModel.NotesViewModel
@@ -23,6 +24,8 @@ class EditNotesFragment: Fragment() {
     val oldNotes by navArgs<EditNotesFragmentArgs>()
     lateinit var  binding: FragmentEditNotesBinding
     val viewModel: NotesViewModel by viewModels()
+
+
 
     var priority: String = "1"
 
@@ -116,23 +119,30 @@ class EditNotesFragment: Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
+        if(item.title == "Delete"){
             val bottomSheet: BottomSheetDialog = BottomSheetDialog(requireContext(),R.style.BottomSheetStyle)
             bottomSheet.setContentView(R.layout.dialog_delete)
 
             val textviewYes=bottomSheet.findViewById<TextView>(R.id.dialog_yes)
             val textviewNo=bottomSheet.findViewById<TextView>(R.id.dialog_no)
 
-        textviewYes?.setOnClickListener{
-            viewModel.deleteNotes(oldNotes.data.id!!)
-            bottomSheet.dismiss()
+            textviewYes?.setOnClickListener{
+                viewModel.deleteNotes(oldNotes.data.id!!)
+                bottomSheet.dismiss()
 
-        }
-        textviewNo?.setOnClickListener{
-            bottomSheet.dismiss()
-        }
+            }
+            textviewNo?.setOnClickListener{
+                bottomSheet.dismiss()
+            }
 
             bottomSheet.show()
+        }else{
+            requireActivity().onBackPressed()
+        }
+
 
         return super.onOptionsItemSelected(item)
     }
+
+
 }
