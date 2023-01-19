@@ -29,9 +29,10 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:maxHeight="200dp"
             android:background="@drawable/edt_text_shape"
-            android:maxLines="1"
+
             android:padding="15dp"
             android:id="@+id/edtSubTitle"
             android:layout_marginTop="10dp"
