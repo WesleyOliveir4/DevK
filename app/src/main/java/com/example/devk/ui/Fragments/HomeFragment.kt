@@ -6,6 +6,9 @@ import android.os.Environment
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import androidx.core.graphics.blue
+import androidx.core.graphics.red
+import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -16,6 +19,7 @@ import com.example.devk.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentHomeBinding
 import com.example.devk.ui.Adapter.NotesAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.json.JSONObject
 import java.io.File
 
 
@@ -30,7 +34,7 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        binding = FragmentHomeBinding.inflate(layoutInflater, container,false)
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         setHasOptionsMenu(true)
 
         viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
@@ -41,7 +45,7 @@ class HomeFragment : Fragment() {
         }
 
 
-        binding.allNotes.setOnClickListener{
+        binding.allNotes.setOnClickListener {
             viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
 
                 binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -50,7 +54,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.filterHigh.setOnClickListener{
+        binding.filterHigh.setOnClickListener {
             viewModel.getHighNotes().observe(viewLifecycleOwner) { notesList ->
 
                 binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -58,7 +62,7 @@ class HomeFragment : Fragment() {
 
             }
         }
-        binding.filterMedium.setOnClickListener{
+        binding.filterMedium.setOnClickListener {
             viewModel.getMediumNotes().observe(viewLifecycleOwner) { notesList ->
 
                 binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -66,7 +70,7 @@ class HomeFragment : Fragment() {
 
             }
         }
-        binding.filterLow.setOnClickListener{
+        binding.filterLow.setOnClickListener {
             viewModel.getLowNotes().observe(viewLifecycleOwner) { notesList ->
 
                 binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -76,8 +80,9 @@ class HomeFragment : Fragment() {
         }
 
 
-        binding.btnAddNotes.setOnClickListener{
-            Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_createNotesFragment)
+        binding.btnAddNotes.setOnClickListener {
+            Navigation.findNavController(it)
+                .navigate(R.id.action_homeFragment_to_createNotesFragment)
         }
 
         return binding.root
@@ -90,29 +95,30 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if(item.title == "Exportar"){
-            val bottomSheet: BottomSheetDialog = BottomSheetDialog(requireContext(),R.style.BottomSheetStyle)
+        if (item.title == "Exportar") {
+            val bottomSheet: BottomSheetDialog =
+                BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
             bottomSheet.setContentView(R.layout.dialog_export)
 
-            val textviewYes=bottomSheet.findViewById<TextView>(R.id.dialog_yes)
-            val textviewNo=bottomSheet.findViewById<TextView>(R.id.dialog_no)
+            val textviewYes = bottomSheet.findViewById<TextView>(R.id.dialog_yes)
+            val textviewNo = bottomSheet.findViewById<TextView>(R.id.dialog_no)
 
+            viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
 
-            viewModel.getNotes().observe(viewLifecycleOwner){notesList ->
+                textviewYes?.setOnClickListener {
+                   writeToFile(notesList,requireContext())
 
-                textviewYes?.setOnClickListener{
-                    writeToFile(notesList,requireContext())
                     bottomSheet.dismiss()
 
                 }
             }
 
-            textviewNo?.setOnClickListener{
+            textviewNo?.setOnClickListener {
                 bottomSheet.dismiss()
             }
 
             bottomSheet.show()
-        }else{
+        } else {
             requireActivity().onBackPressed()
         }
 
@@ -122,24 +128,47 @@ class HomeFragment : Fragment() {
 
     fun writeToFile(data: List<Notes>, context: Context) {
 
-//        val path = Environment.getExternalStoragePublicDirectory(
-//            Environment.DIRECTORY_DOCUMENTS
-//        )
-//        val file = File(path, "DataBaseDevK.txt")
+
+        val path = Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DOWNLOADS
+        )
+        val file = File(path, "DataBaseDevK.txt")
+
 
         try {
-//            if (!file.exists()) {
-//                File.createTempFile("DataBaseDevK",".txt",path);
-//            }
-//
-//
-        //   file.writeText()
 
-        }
-        catch (e: Exception) {
+                if (!file.exists()) {
+                    File.createTempFile("DataBaseDevK", ".txt", path);
+                }
+
+                viewModel.getNotes().observe(viewLifecycleOwner){ listNotes ->
+
+                    var teste: String = ""
+                    var teste2: String = ""
+                    val notesLista: List<Notes> = listNotes
+                    for (i in 0 until notesLista.size) {
+                        val data = notesLista[i]
+                        teste = buildString {
+                            append(
+
+
+                                "\n \"${i}\":{ \n" +
+                                        "   \"Titulo\":\"${data.title}\",\n" +
+                                        "   \"SubTitulo\":\"${data.subTitle}\",\n" +
+                                        "   \"Doc\":\"${data.notes}\",\n" +
+                                        "   \"Prioridade\":\"${data.priority}\",\n" +
+                                        "   \"Data\":\"${data.date}\"\n"
+
+                            )
+                        }
+                        teste2 = teste2.plus(teste)
+                    }
+                    file.writeText(teste2)
+                }
+
+
+        } catch (e: Exception) {
             Log.e("Exception", "Falha na exportação: " + e.toString());
         }
     }
-
-
 }
