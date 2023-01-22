@@ -6,6 +6,7 @@ import android.os.Environment
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.graphics.blue
 import androidx.core.graphics.red
 import androidx.core.graphics.toColorInt
@@ -170,5 +171,6 @@ class HomeFragment : Fragment() {
         } catch (e: Exception) {
             Log.e("Exception", "Falha na exportação: " + e.toString());
         }
+        Toast.makeText(getContext(),"Docs exportados com sucesso", Toast.LENGTH_SHORT).show()
     }
 }
