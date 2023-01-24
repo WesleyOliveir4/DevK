@@ -128,8 +128,9 @@ class EditNotesFragment: Fragment() {
 
             textviewYes?.setOnClickListener{
                 viewModel.deleteNotes(oldNotes.data.id!!)
+                Toast.makeText(getContext(),"Doc deletado com sucesso", Toast.LENGTH_SHORT).show()
                 bottomSheet.dismiss()
-
+                requireActivity().onBackPressed()
             }
             textviewNo?.setOnClickListener{
                 bottomSheet.dismiss()
