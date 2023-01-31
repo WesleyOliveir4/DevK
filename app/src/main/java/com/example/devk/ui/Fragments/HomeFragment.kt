@@ -101,7 +101,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_exportar, menu)
+        inflater.inflate(R.menu.home_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -130,7 +130,35 @@ class HomeFragment : Fragment() {
             }
 
             bottomSheet.show()
-        } else {
+        }else if(item.title == "CloudFirebase"){
+
+            viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
+
+                auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener(requireActivity()) {
+                        task ->
+                    //questionar antes se o usuario deseja
+                    //refatorar
+                    if (task.isSuccessful){
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "Logado com sucesso")
+                        val user = auth.currentUser
+                        AuthModel(auth.uid)
+                        val notesRealDatabase = NotesRealDatabase(id = auth.uid, notes = notesList )
+                        notesRealDatabase.saveDB()
+
+                    }else{
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "Erro ao logar", task.exception)
+
+                    }
+
+                }
+
+                }
+
+
+        }
+        else {
             requireActivity().onBackPressed()
         }
 
@@ -149,29 +177,6 @@ class HomeFragment : Fragment() {
 
         try {
 
-            //inserir no Auth model o id e nome do usuario logado
-            // seguimentar o login e o save na nuvem
-            //definir layout
-
-
-            auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener(requireActivity()) {
-                    task ->
-
-                if (task.isSuccessful){
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    val notesRealDatabase = NotesRealDatabase(id = auth.uid, notes = data )
-                    notesRealDatabase.saveDB()
-
-                }else{
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-
-                }
-
-            }
-
                 if (!file.exists()) {
                     File.createTempFile("DataBaseDevK", ".txt", path);
                 }
@@ -185,7 +190,6 @@ class HomeFragment : Fragment() {
                         val data = notesLista[i]
                         teste = buildString {
                             append(
-
 
                                 "\n \"${i}\":{ \n" +
                                         "   \"Titulo\":\"${data.title}\",\n" +
