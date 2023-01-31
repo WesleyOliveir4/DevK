@@ -1,5 +1,6 @@
 package com.example.devk.ui.Fragments
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.os.Environment
@@ -7,20 +8,23 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.graphics.blue
-import androidx.core.graphics.red
-import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.devk.Firebase.Auth.AuthModel
+import com.example.devk.Firebase.NotesRD.NotesRealDatabase
 import com.example.devk.Model.Notes
 import com.example.devk.R
 import com.example.devk.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentHomeBinding
 import com.example.devk.ui.Adapter.NotesAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import org.json.JSONObject
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import java.io.File
 
 
@@ -28,6 +32,9 @@ class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     val viewModel: NotesViewModel by viewModels()
+
+    private lateinit var auth: FirebaseAuth
+    private var database: FirebaseDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +44,10 @@ class HomeFragment : Fragment() {
 
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         setHasOptionsMenu(true)
+
+        auth = Firebase.auth
+        database = FirebaseDatabase.getInstance()
+
 
         viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
 
@@ -137,6 +148,29 @@ class HomeFragment : Fragment() {
 
 
         try {
+
+            //inserir no Auth model o id e nome do usuario logado
+            // seguimentar o login e o save na nuvem
+            //definir layout
+
+
+            auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener(requireActivity()) {
+                    task ->
+
+                if (task.isSuccessful){
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+                    val notesRealDatabase = NotesRealDatabase(id = auth.uid, notes = data )
+                    notesRealDatabase.saveDB()
+
+                }else{
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+
+                }
+
+            }
 
                 if (!file.exists()) {
                     File.createTempFile("DataBaseDevK", ".txt", path);
