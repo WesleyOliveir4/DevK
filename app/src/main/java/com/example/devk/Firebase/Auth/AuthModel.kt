@@ -6,6 +6,7 @@ class AuthModel(
     private val id: String? = null,
 ) {
 
+   fun idLogado():String{ return id!!}
 
 
 }

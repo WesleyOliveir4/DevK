@@ -110,7 +110,7 @@ class HomeFragment : Fragment() {
         if (item.title == "Exportar") {
             val bottomSheet: BottomSheetDialog =
                 BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
-            bottomSheet.setContentView(R.layout.dialog_export)
+            bottomSheet.setContentView(R.layout.dialog_cloud)
 
             val textviewYes = bottomSheet.findViewById<TextView>(R.id.dialog_yes)
             val textviewNo = bottomSheet.findViewById<TextView>(R.id.dialog_no)
@@ -132,30 +132,46 @@ class HomeFragment : Fragment() {
             bottomSheet.show()
         }else if(item.title == "CloudFirebase"){
 
+            val bottomSheet: BottomSheetDialog =
+                BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
+            bottomSheet.setContentView(R.layout.dialog_cloud)
+
+            val textviewYes = bottomSheet.findViewById<TextView>(R.id.dialog_yes)
+            val textviewNo = bottomSheet.findViewById<TextView>(R.id.dialog_no)
+
             viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
 
-                auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener(requireActivity()) {
-                        task ->
-                    //questionar antes se o usuario deseja
-                    //refatorar
-                    if (task.isSuccessful){
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "Logado com sucesso")
-                        val user = auth.currentUser
-                        AuthModel(auth.uid)
-                        val notesRealDatabase = NotesRealDatabase(id = auth.uid, notes = notesList )
-                        notesRealDatabase.saveDB()
+                textviewYes?.setOnClickListener {
 
-                    }else{
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "Erro ao logar", task.exception)
+                    auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener(requireActivity()) {
+                            task ->
+                        //questionar antes se o usuario deseja
+                        //refatorar
+                        if (task.isSuccessful){
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "Logado com sucesso")
+                            val authModel = AuthModel(auth.uid)
+                            val notesRealDatabase = NotesRealDatabase(id = authModel.idLogado(), notes = notesList )
+                            notesRealDatabase.saveDB()
+
+                        }else{
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "Erro ao logar", task.exception)
+
+                        }
 
                     }
 
-                }
+                    bottomSheet.dismiss()
 
                 }
 
+                textviewNo?.setOnClickListener {
+                    bottomSheet.dismiss()
+                }
+
+                }
+            bottomSheet.show()
 
         }
         else {
