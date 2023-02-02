@@ -16,6 +16,7 @@ import com.example.devk.Firebase.Auth.AuthModel
 import com.example.devk.Firebase.NotesRD.NotesRealDatabase
 import com.example.devk.Model.Notes
 import com.example.devk.R
+import com.example.devk.Storage.StorageFormat
 import com.example.devk.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentHomeBinding
 import com.example.devk.ui.Adapter.NotesAdapter
@@ -95,7 +96,7 @@ class HomeFragment : Fragment() {
         if (item.title == "Exportar") {
             val bottomSheet: BottomSheetDialog =
                 BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
-            bottomSheet.setContentView(R.layout.dialog_cloud)
+            bottomSheet.setContentView(R.layout.dialog_export)
 
             val textviewYes = bottomSheet.findViewById<TextView>(R.id.dialog_yes)
             val textviewNo = bottomSheet.findViewById<TextView>(R.id.dialog_no)
@@ -166,56 +167,20 @@ class HomeFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-
         return super.onOptionsItemSelected(item)
     }
 
     private fun writeToFile(data: List<Notes>, context: Context) {
 
-
-        //interface ou uma Classe?
-
-        val path = Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_DOWNLOADS
-        )
-        val file = File(path, "DataBaseDevK.txt")
-
-
-        try {
-
-                if (!file.exists()) {
-                    File.createTempFile("DataBaseDevK", ".txt", path);
-                }
-
                 viewModel.getNotes().observe(viewLifecycleOwner){ listNotes ->
-
-                    var teste: String = ""
-                    var teste2: String = ""
-                    val notesLista: List<Notes> = listNotes
-                    for (i in 0 until notesLista.size) {
-                        val data = notesLista[i]
-                        teste = buildString {
-                            append(
-
-                                "\n \"${i}\":{ \n" +
-                                        "   \"Titulo\":\"${data.title}\",\n" +
-                                        "   \"SubTitulo\":\"${data.subTitle}\",\n" +
-                                        "   \"Doc\":\"${data.notes}\",\n" +
-                                        "   \"Prioridade\":\"${data.priority}\",\n" +
-                                        "   \"Data\":\"${data.date}\"\n"
-
-                            )
-                        }
-                        teste2 = teste2.plus(teste)
+                    try {
+                        StorageFormat().formatToTXT(listNotes)
+                        Toast.makeText(getContext(),"Docs exportados com sucesso", Toast.LENGTH_SHORT).show()
+                    }catch (e: Exception){
+                        Toast.makeText(getContext(),"Falha na exportação", Toast.LENGTH_SHORT).show()
+                        Log.e("Exception", "Falha na exportação: $e ");
                     }
-                    file.writeText(teste2)
                 }
-
-
-        } catch (e: Exception) {
-            Log.e("Exception", "Falha na exportação: " + e.toString());
-        }
-        Toast.makeText(getContext(),"Docs exportados com sucesso", Toast.LENGTH_SHORT).show()
     }
 
     private fun pushRecyclerView(listNotes: List<Notes>){
