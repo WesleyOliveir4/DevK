@@ -50,44 +50,29 @@ class HomeFragment : Fragment() {
 
 
         viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
-
-            binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
-            binding.rcvAllNotes.adapter = NotesAdapter(requireContext(), notesList)
-
+            pushRecyclerView(notesList)
         }
 
 
         binding.allNotes.setOnClickListener {
             viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
-
-                binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
-                binding.rcvAllNotes.adapter = NotesAdapter(requireContext(), notesList)
-
+                pushRecyclerView(notesList)
             }
         }
 
         binding.filterHigh.setOnClickListener {
             viewModel.getHighNotes().observe(viewLifecycleOwner) { notesList ->
-
-                binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
-                binding.rcvAllNotes.adapter = NotesAdapter(requireContext(), notesList)
-
+                pushRecyclerView(notesList)
             }
         }
         binding.filterMedium.setOnClickListener {
             viewModel.getMediumNotes().observe(viewLifecycleOwner) { notesList ->
-
-                binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
-                binding.rcvAllNotes.adapter = NotesAdapter(requireContext(), notesList)
-
+                pushRecyclerView(notesList)
             }
         }
         binding.filterLow.setOnClickListener {
             viewModel.getLowNotes().observe(viewLifecycleOwner) { notesList ->
-
-                binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
-                binding.rcvAllNotes.adapter = NotesAdapter(requireContext(), notesList)
-
+                pushRecyclerView(notesList)
             }
         }
 
@@ -143,6 +128,9 @@ class HomeFragment : Fragment() {
 
                 textviewYes?.setOnClickListener {
 
+                    //verificar se é plausivel encaixar o bloco abaixo no Auth
+                    //se logar retorna um id e com esse id eu salvo no firebase
+
                     auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener(requireActivity()) {
                             task ->
                         //questionar antes se o usuario deseja
@@ -182,8 +170,10 @@ class HomeFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun writeToFile(data: List<Notes>, context: Context) {
+    private fun writeToFile(data: List<Notes>, context: Context) {
 
+
+        //interface ou uma Classe?
 
         val path = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_DOWNLOADS
@@ -226,5 +216,10 @@ class HomeFragment : Fragment() {
             Log.e("Exception", "Falha na exportação: " + e.toString());
         }
         Toast.makeText(getContext(),"Docs exportados com sucesso", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun pushRecyclerView(listNotes: List<Notes>){
+        binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rcvAllNotes.adapter = NotesAdapter(requireContext(), listNotes)
     }
 }
