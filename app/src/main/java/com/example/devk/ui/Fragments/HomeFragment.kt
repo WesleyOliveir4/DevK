@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
             viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
 
                 textviewYes?.setOnClickListener {
-                   writeToFile(notesList,requireContext())
+                    writeToFile(notesList, requireContext())
 
                     bottomSheet.dismiss()
 
@@ -116,7 +116,7 @@ class HomeFragment : Fragment() {
             }
 
             bottomSheet.show()
-        }else if(item.title == "CloudFirebase"){
+        } else if (item.title == "CloudFirebase") {
 
             val bottomSheet: BottomSheetDialog =
                 BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
@@ -129,28 +129,7 @@ class HomeFragment : Fragment() {
 
                 textviewYes?.setOnClickListener {
 
-                    //verificar se é plausivel encaixar o bloco abaixo no Auth
-                    //se logar retorna um id e com esse id eu salvo no firebase
-
-                    auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener(requireActivity()) {
-                            task ->
-                        //questionar antes se o usuario deseja
-                        //refatorar
-                        if (task.isSuccessful){
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "Logado com sucesso")
-                            val authModel = AuthModel(auth.uid)
-                            val notesRealDatabase = NotesRealDatabase(id = authModel.idLogado(), notes = notesList )
-                            notesRealDatabase.saveDB()
-
-                        }else{
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "Erro ao logar", task.exception)
-
-                        }
-
-                    }
-
+                    AuthModel().loginFirebase(requireActivity(), notesList)
                     bottomSheet.dismiss()
 
                 }
@@ -159,11 +138,10 @@ class HomeFragment : Fragment() {
                     bottomSheet.dismiss()
                 }
 
-                }
+            }
             bottomSheet.show()
 
-        }
-        else {
+        } else {
             requireActivity().onBackPressed()
         }
 
@@ -172,18 +150,19 @@ class HomeFragment : Fragment() {
 
     private fun writeToFile(data: List<Notes>, context: Context) {
 
-                viewModel.getNotes().observe(viewLifecycleOwner){ listNotes ->
-                    try {
-                        StorageFormat().formatToTXT(listNotes)
-                        Toast.makeText(getContext(),"Docs exportados com sucesso", Toast.LENGTH_SHORT).show()
-                    }catch (e: Exception){
-                        Toast.makeText(getContext(),"Falha na exportação", Toast.LENGTH_SHORT).show()
-                        Log.e("Exception", "Falha na exportação: $e ");
-                    }
-                }
+        viewModel.getNotes().observe(viewLifecycleOwner) { listNotes ->
+            try {
+                StorageFormat().formatToTXT(listNotes)
+                Toast.makeText(getContext(), "Docs exportados com sucesso", Toast.LENGTH_SHORT)
+                    .show()
+            } catch (e: Exception) {
+                Toast.makeText(getContext(), "Falha na exportação", Toast.LENGTH_SHORT).show()
+                Log.e("Exception", "Falha na exportação: $e ");
+            }
+        }
     }
 
-    private fun pushRecyclerView(listNotes: List<Notes>){
+    private fun pushRecyclerView(listNotes: List<Notes>) {
         binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rcvAllNotes.adapter = NotesAdapter(requireContext(), listNotes)
     }
