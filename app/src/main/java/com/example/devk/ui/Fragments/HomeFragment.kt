@@ -26,6 +26,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.dialog_message_app.*
 import java.io.File
 
 
@@ -153,8 +154,14 @@ class HomeFragment : Fragment() {
         viewModel.getNotes().observe(viewLifecycleOwner) { listNotes ->
             try {
                 StorageFormat().formatToTXT(listNotes)
-                Toast.makeText(getContext(), "Docs exportados com sucesso", Toast.LENGTH_SHORT)
-                    .show()
+
+                val bottomSheet: BottomSheetDialog =
+                    BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
+                bottomSheet.setContentView(R.layout.dialog_message_app)
+                bottomSheet.edt_input.text = "Docs exportados com sucesso"
+                bottomSheet.show()
+//                Toast.makeText(getContext(), "Docs exportados com sucesso", Toast.LENGTH_SHORT)
+//                    .show()
             } catch (e: Exception) {
                 Toast.makeText(getContext(), "Falha na exportação", Toast.LENGTH_SHORT).show()
                 Log.e("Exception", "Falha na exportação: $e ");

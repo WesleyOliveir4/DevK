@@ -17,6 +17,7 @@ import com.example.devk.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentCreateNotesBinding
 import com.example.devk.databinding.FragmentEditNotesBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.dialog_message_app.*
 import java.util.*
 
 class EditNotesFragment: Fragment() {
