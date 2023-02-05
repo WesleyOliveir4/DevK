@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.devk.MainActivity
+import com.example.devk.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
 import com.example.devk.ViewModel.NotesViewModel
@@ -99,8 +100,7 @@ class EditNotesFragment: Fragment() {
 
         viewModel.uptadeNotes(notesFinish)
 
-        Toast.makeText(activity,"Documento salvo", Toast.LENGTH_SHORT).show()
-
+        MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
         Navigation.findNavController((it!!)).navigate(R.id.action_editNotesFragment_to_homeFragment)
 
 
@@ -129,7 +129,7 @@ class EditNotesFragment: Fragment() {
 
             textviewYes?.setOnClickListener{
                 viewModel.deleteNotes(oldNotes.data.id!!)
-                Toast.makeText(getContext(),"Doc deletado com sucesso", Toast.LENGTH_SHORT).show()
+                MessageBuilder(requireContext()).MessageShowTimer("Doc deletado com sucesso",1500)
                 bottomSheet.dismiss()
                 requireActivity().onBackPressed()
             }

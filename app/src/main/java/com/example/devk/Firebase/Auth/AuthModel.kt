@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.util.Log
 import android.widget.Toast
 import com.example.devk.Firebase.NotesRD.NotesRealDatabase
+import com.example.devk.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -31,15 +32,17 @@ class AuthModel() {
                         id = auth.uid!!
                         val notesRealDatabase = NotesRealDatabase(id = id, notes = listNotes)
                         notesRealDatabase.saveDB()
-                        Toast.makeText(activity,"Salvo na cloud com sucesso", Toast.LENGTH_SHORT).show()
+                        MessageBuilder(activity).MessageShowTimer("Salvo na cloud com sucesso",1500)
+
                     }catch (e : Exception){
-                        Toast.makeText(activity,"Falha ao salvar", Toast.LENGTH_SHORT).show()
+                        Log.e(ContentValues.TAG, "Falha ao salvar", task.exception)
+                        MessageBuilder(activity).MessageShow("Falha ao salvar")
                     }
 
                 }else{
                     // If sign in fails, display a message to the user.
-                    Log.w(ContentValues.TAG, "Erro ao logar", task.exception)
-                    Toast.makeText(activity,"Falha ao salvar", Toast.LENGTH_SHORT).show()
+                    Log.e(ContentValues.TAG, "Erro ao logar", task.exception)
+                    MessageBuilder(activity).MessageShow("Falha ao salvar")
                 }
 
 

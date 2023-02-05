@@ -15,6 +15,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.devk.MainActivity
+import com.example.devk.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
 import com.example.devk.ViewModel.NotesViewModel
@@ -77,7 +78,7 @@ class CreateNotesFragment : Fragment() {
 
         viewModel.addNotes(notesFinish)
 
-        Toast.makeText(activity,"Documento salvo",Toast.LENGTH_SHORT).show()
+        MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
         Navigation.findNavController((it!!)).navigate(R.id.action_createNotesFragment3_to_homeFragment)
     }
 

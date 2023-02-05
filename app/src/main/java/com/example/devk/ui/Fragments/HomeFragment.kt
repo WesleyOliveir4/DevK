@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.devk.Firebase.Auth.AuthModel
 import com.example.devk.Firebase.NotesRD.NotesRealDatabase
+import com.example.devk.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
 import com.example.devk.Storage.StorageFormat
@@ -154,16 +155,10 @@ class HomeFragment : Fragment() {
         viewModel.getNotes().observe(viewLifecycleOwner) { listNotes ->
             try {
                 StorageFormat().formatToTXT(listNotes)
+                MessageBuilder(requireContext()).MessageShowTimer("Docs exportados com sucesso",1500)
 
-                val bottomSheet: BottomSheetDialog =
-                    BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
-                bottomSheet.setContentView(R.layout.dialog_message_app)
-                bottomSheet.edt_input.text = "Docs exportados com sucesso"
-                bottomSheet.show()
-//                Toast.makeText(getContext(), "Docs exportados com sucesso", Toast.LENGTH_SHORT)
-//                    .show()
             } catch (e: Exception) {
-                Toast.makeText(getContext(), "Falha na exportação", Toast.LENGTH_SHORT).show()
+                MessageBuilder(requireContext()).MessageShow("Falha na exportação")
                 Log.e("Exception", "Falha na exportação: $e ");
             }
         }
