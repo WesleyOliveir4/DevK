@@ -1,7 +1,7 @@
-package com.example.devk.Storage
+package com.example.devk.data.Storage
 
 import android.os.Environment
-import com.example.devk.Model.Notes
+import com.example.devk.data.Model.Notes
 import java.io.File
 
 class StorageFormat() {

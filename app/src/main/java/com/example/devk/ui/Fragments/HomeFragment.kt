@@ -12,12 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.devk.Firebase.Auth.AuthModel
-import com.example.devk.Firebase.NotesRD.NotesRealDatabase
-import com.example.devk.Message.MessageBuilder
-import com.example.devk.Model.Notes
+import com.example.devk.data.Firebase.Auth.AuthModel
+import com.example.devk.data.Firebase.NotesRD.NotesRealDatabase
+import com.example.devk.data.Message.MessageBuilder
+import com.example.devk.data.Model.Notes
 import com.example.devk.R
-import com.example.devk.Storage.StorageFormat
+import com.example.devk.data.Storage.StorageFormat
 import com.example.devk.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentHomeBinding
 import com.example.devk.ui.Adapter.NotesAdapter
@@ -132,6 +132,7 @@ class HomeFragment : Fragment() {
                 textviewYes?.setOnClickListener {
 
                     AuthModel().loginFirebase(requireActivity(), notesList)
+                    Log.d("teste" , AuthModel().idLogado().toString() )
                     bottomSheet.dismiss()
 
                 }

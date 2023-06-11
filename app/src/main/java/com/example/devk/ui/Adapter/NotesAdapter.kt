@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.devk.Model.Notes
+import com.example.devk.data.Model.Notes
 import com.example.devk.R
 import com.example.devk.databinding.ItemNotesBinding
 import com.example.devk.ui.Fragments.HomeFragmentDirections

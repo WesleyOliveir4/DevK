@@ -1,4 +1,4 @@
-package com.example.devk.Message
+package com.example.devk.data.Message
 
 import android.content.Context
 import android.content.Intent
@@ -20,7 +20,6 @@ class MessageBuilder(
         bottomSheet.edt_input.text = message
         bottomSheet.show()
     }
-
 
     fun MessageShowTimer(message: String, delay: Long?) {
 
