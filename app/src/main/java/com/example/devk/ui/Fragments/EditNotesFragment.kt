@@ -5,20 +5,16 @@ import android.text.format.DateFormat
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import com.example.devk.MainActivity
 import com.example.devk.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
 import com.example.devk.ViewModel.NotesViewModel
-import com.example.devk.databinding.FragmentCreateNotesBinding
 import com.example.devk.databinding.FragmentEditNotesBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.dialog_message_app.*
 import java.util.*
 
 class EditNotesFragment: Fragment() {
