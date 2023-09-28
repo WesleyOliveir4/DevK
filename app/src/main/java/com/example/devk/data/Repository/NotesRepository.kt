@@ -1,7 +1,7 @@
-package com.example.devk.Repository
+package com.example.devk.data.Repository
 
 import androidx.lifecycle.LiveData
-import com.example.devk.Dao.NotesDao
+import com.example.devk.data.Dao.NotesDao
 import com.example.devk.Model.Notes
 
 class NotesRepository(val dao: NotesDao) {

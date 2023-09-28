@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1062229761670",
+    "project_id": "devk-564ea",
+    "storage_bucket": "devk-564ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062229761670:android:ada25eea0a8cfbbccd3b07",
+        "android_client_info": {
+          "package_name": "com.example.devk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062229761670-qd8m60teksgrd2v4c7re09rjq3qurpo3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq0vgP0X9q5b07qXjzj2Oz2r_wuCw9bIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062229761670-qd8m60teksgrd2v4c7re09rjq3qurpo3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

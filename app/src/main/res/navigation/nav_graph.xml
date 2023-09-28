@@ -6,8 +6,8 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.devk.ui.Fragments.HomeFragment"
-        android:label="fragment_home"
+        android:name="com.example.devk.presentation.ui.Fragments.HomeFragment"
+        android:label="DevK"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_createNotesFragment"
@@ -18,8 +18,8 @@
     </fragment>
     <fragment
         android:id="@+id/createNotesFragment"
-        android:name="com.example.devk.ui.Fragments.CreateNotesFragment"
-        android:label="Add new Notes"
+        android:name="com.example.devk.presentation.ui.Fragments.CreateNotesFragment"
+        android:label="Add Docs"
         tools:layout="@layout/fragment_create_notes" >
         <action
             android:id="@+id/action_createNotesFragment3_to_homeFragment"
@@ -27,8 +27,8 @@
     </fragment>
     <fragment
         android:id="@+id/editNotesFragment"
-        android:name="com.example.devk.ui.Fragments.EditNotesFragment"
-        android:label="Edit Notes"
+        android:name="com.example.devk.presentation.ui.Fragments.EditNotesFragment"
+        android:label="Edit Docs"
         tools:layout="@layout/fragment_edit_notes" >
         <action
             android:id="@+id/action_editNotesFragment_to_homeFragment"

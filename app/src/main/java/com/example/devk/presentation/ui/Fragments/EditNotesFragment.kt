@@ -1,19 +1,18 @@
-package com.example.devk.ui.Fragments
+package com.example.devk.presentation.ui.Fragments
 
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
-import com.example.devk.ViewModel.NotesViewModel
-import com.example.devk.databinding.FragmentCreateNotesBinding
+import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentEditNotesBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
@@ -23,6 +22,8 @@ class EditNotesFragment: Fragment() {
     val oldNotes by navArgs<EditNotesFragmentArgs>()
     lateinit var  binding: FragmentEditNotesBinding
     val viewModel: NotesViewModel by viewModels()
+
+
 
     var priority: String = "1"
 
@@ -95,8 +96,7 @@ class EditNotesFragment: Fragment() {
 
         viewModel.uptadeNotes(notesFinish)
 
-        Toast.makeText(activity,"Documento salvo", Toast.LENGTH_SHORT).show()
-
+        MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
         Navigation.findNavController((it!!)).navigate(R.id.action_editNotesFragment_to_homeFragment)
 
 
@@ -116,23 +116,31 @@ class EditNotesFragment: Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
+        if(item.title == "Delete"){
             val bottomSheet: BottomSheetDialog = BottomSheetDialog(requireContext(),R.style.BottomSheetStyle)
             bottomSheet.setContentView(R.layout.dialog_delete)
 
             val textviewYes=bottomSheet.findViewById<TextView>(R.id.dialog_yes)
             val textviewNo=bottomSheet.findViewById<TextView>(R.id.dialog_no)
 
-        textviewYes?.setOnClickListener{
-            viewModel.deleteNotes(oldNotes.data.id!!)
-            bottomSheet.dismiss()
-
-        }
-        textviewNo?.setOnClickListener{
-            bottomSheet.dismiss()
-        }
+            textviewYes?.setOnClickListener{
+                viewModel.deleteNotes(oldNotes.data.id!!)
+                MessageBuilder(requireContext()).MessageShowTimer("Doc deletado com sucesso",1500)
+                bottomSheet.dismiss()
+                requireActivity().onBackPressed()
+            }
+            textviewNo?.setOnClickListener{
+                bottomSheet.dismiss()
+            }
 
             bottomSheet.show()
+        }else{
+            requireActivity().onBackPressed()
+        }
+
 
         return super.onOptionsItemSelected(item)
     }
+
+
 }

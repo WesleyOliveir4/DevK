@@ -1,21 +1,20 @@
-package com.example.devk.ui.Fragments
+package com.example.devk.presentation.ui.Fragments
 
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Switch
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
-import com.example.devk.ViewModel.NotesViewModel
+import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentCreateNotesBinding
-import com.example.devk.databinding.FragmentHomeBinding
 import java.util.*
 
 class CreateNotesFragment : Fragment() {
@@ -30,7 +29,7 @@ class CreateNotesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCreateNotesBinding.inflate(layoutInflater, container, false)
-
+        setHasOptionsMenu(true)
 
         binding.btnEditSaveNotes.setOnClickListener {
             createNotes(it)
@@ -50,7 +49,6 @@ class CreateNotesFragment : Fragment() {
             applyPriorityColor(binding.optRed)
             priority = "3"
         }
-
 
         return binding.root
     }
@@ -74,8 +72,7 @@ class CreateNotesFragment : Fragment() {
 
         viewModel.addNotes(notesFinish)
 
-        Toast.makeText(activity,"Documento salvo",Toast.LENGTH_SHORT).show()
-
+        MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
         Navigation.findNavController((it!!)).navigate(R.id.action_createNotesFragment3_to_homeFragment)
     }
 
@@ -85,5 +82,10 @@ class CreateNotesFragment : Fragment() {
         binding.optRed.setImageResource(0)
         imgView.setImageResource(R.drawable.ic_check)
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        requireActivity().onBackPressed()
+        return super.onOptionsItemSelected(item)
+    }
+
 
 }

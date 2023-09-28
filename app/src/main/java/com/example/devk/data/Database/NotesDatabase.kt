@@ -1,10 +1,10 @@
-package com.example.devk.Database
+package com.example.devk.data.Database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.devk.Dao.NotesDao
+import com.example.devk.data.Dao.NotesDao
 import com.example.devk.Model.Notes
 
 @Database(entities = [Notes::class], version = 1, exportSchema = false)
@@ -15,7 +15,7 @@ abstract class NotesDatabase : RoomDatabase() {
     {
         var INSTANCE: NotesDatabase?=null
 
-        fun getDatabaseInstance(context: Context):NotesDatabase{
+        fun getDatabaseInstance(context: Context): NotesDatabase {
             val tempInstance = INSTANCE
             if (tempInstance!= null){
                 return  tempInstance
