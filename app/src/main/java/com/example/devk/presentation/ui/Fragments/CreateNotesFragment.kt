@@ -1,4 +1,4 @@
-package com.example.devk.ui.Fragments
+package com.example.devk.presentation.ui.Fragments
 
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -8,19 +8,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Switch
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.example.devk.MainActivity
-import com.example.devk.Message.MessageBuilder
+import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
-import com.example.devk.ViewModel.NotesViewModel
+import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentCreateNotesBinding
-import com.example.devk.databinding.FragmentHomeBinding
 import java.util.*
 
 class CreateNotesFragment : Fragment() {

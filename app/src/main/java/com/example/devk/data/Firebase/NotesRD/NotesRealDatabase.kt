@@ -1,4 +1,4 @@
-package com.example.devk.Firebase.NotesRD
+package com.example.devk.data.Firebase.NotesRD
 
 import com.example.devk.Model.Notes
 import com.google.firebase.database.FirebaseDatabase

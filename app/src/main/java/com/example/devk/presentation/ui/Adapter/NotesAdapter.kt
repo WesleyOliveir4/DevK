@@ -1,4 +1,4 @@
-package com.example.devk.ui.Adapter
+package com.example.devk.presentation.ui.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.devk.Model.Notes
 import com.example.devk.R
 import com.example.devk.databinding.ItemNotesBinding
-import com.example.devk.ui.Fragments.HomeFragmentDirections
+import com.example.devk.presentation.ui.Fragments.HomeFragmentDirections
 
 class NotesAdapter(val requireContext: Context, val notesList: List<Notes>) :
     RecyclerView.Adapter<NotesAdapter.notesViewHolder>() {

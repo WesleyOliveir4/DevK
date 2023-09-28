@@ -1,11 +1,10 @@
-package com.example.devk.Firebase.Auth
+package com.example.devk.data.Firebase.Auth
 
 import android.app.Activity
 import android.content.ContentValues
 import android.util.Log
-import android.widget.Toast
-import com.example.devk.Firebase.NotesRD.NotesRealDatabase
-import com.example.devk.Message.MessageBuilder
+import com.example.devk.data.Firebase.NotesRD.NotesRealDatabase
+import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

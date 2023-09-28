@@ -1,4 +1,4 @@
-package com.example.devk.Message
+package com.example.devk.data.Message
 
 import android.content.Context
 import android.content.Intent

@@ -18,7 +18,7 @@
         android:theme="@style/Theme.DevK"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreen"
+            android:name=".presentation.SplashScreen"
             android:exported="true">
 
             <intent-filter>
@@ -32,7 +32,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true">
 
             <meta-data

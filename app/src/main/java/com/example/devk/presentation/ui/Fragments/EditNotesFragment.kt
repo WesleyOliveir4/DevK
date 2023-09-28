@@ -1,4 +1,4 @@
-package com.example.devk.ui.Fragments
+package com.example.devk.presentation.ui.Fragments
 
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import com.example.devk.Message.MessageBuilder
+import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
-import com.example.devk.ViewModel.NotesViewModel
+import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentEditNotesBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*

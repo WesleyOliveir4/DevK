@@ -1,34 +1,27 @@
-package com.example.devk.ui.Fragments
+package com.example.devk.presentation.ui.Fragments
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.devk.Firebase.Auth.AuthModel
-import com.example.devk.Firebase.NotesRD.NotesRealDatabase
-import com.example.devk.Message.MessageBuilder
+import com.example.devk.data.Firebase.Auth.AuthModel
+import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.Model.Notes
 import com.example.devk.R
-import com.example.devk.Storage.StorageFormat
-import com.example.devk.ViewModel.NotesViewModel
+import com.example.devk.data.Storage.StorageFormat
+import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentHomeBinding
-import com.example.devk.ui.Adapter.NotesAdapter
+import com.example.devk.presentation.ui.Adapter.NotesAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.dialog_message_app.*
-import java.io.File
 
 
 class HomeFragment : Fragment() {
