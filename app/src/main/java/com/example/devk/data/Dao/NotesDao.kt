@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.devk.Model.Notes
+import com.example.devk.domain.model.Notes
 
 @Dao
 interface NotesDao {

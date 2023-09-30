@@ -1,4 +1,4 @@
-package com.example.devk.Model
+package com.example.devk.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity

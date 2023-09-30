@@ -5,7 +5,7 @@ import android.content.ContentValues
 import android.util.Log
 import com.example.devk.data.Firebase.NotesRD.NotesRealDatabase
 import com.example.devk.data.Message.MessageBuilder
-import com.example.devk.Model.Notes
+import com.example.devk.domain.model.Notes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

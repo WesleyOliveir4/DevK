@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.devk.data.Firebase.Auth.AuthModel
 import com.example.devk.data.Message.MessageBuilder
-import com.example.devk.Model.Notes
+import com.example.devk.domain.model.Notes
 import com.example.devk.R
 import com.example.devk.data.Storage.StorageFormat
 import com.example.devk.presentation.ViewModel.NotesViewModel
