@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.devk.data.Database.NotesDatabase
-import com.example.devk.Model.Notes
+import com.example.devk.domain.model.Notes
 import com.example.devk.data.Repository.NotesRepository
 
 class NotesViewModel(application: Application) : AndroidViewModel(application) {

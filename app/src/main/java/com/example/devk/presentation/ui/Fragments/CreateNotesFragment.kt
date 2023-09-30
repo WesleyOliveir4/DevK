@@ -11,7 +11,7 @@ import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.devk.data.Message.MessageBuilder
-import com.example.devk.Model.Notes
+import com.example.devk.domain.model.Notes
 import com.example.devk.R
 import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentCreateNotesBinding

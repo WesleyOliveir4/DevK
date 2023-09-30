@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.devk.data.Dao.NotesDao
-import com.example.devk.Model.Notes
+import com.example.devk.domain.model.Notes
 
 @Database(entities = [Notes::class], version = 1, exportSchema = false)
 abstract class NotesDatabase : RoomDatabase() {

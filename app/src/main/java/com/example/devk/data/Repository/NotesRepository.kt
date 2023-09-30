@@ -2,7 +2,7 @@ package com.example.devk.data.Repository
 
 import androidx.lifecycle.LiveData
 import com.example.devk.data.Dao.NotesDao
-import com.example.devk.Model.Notes
+import com.example.devk.domain.model.Notes
 
 class NotesRepository(val dao: NotesDao) {
     fun getAllNotes(): LiveData<List<Notes>>{
