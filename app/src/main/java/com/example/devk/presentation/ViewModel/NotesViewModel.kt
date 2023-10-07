@@ -3,24 +3,24 @@ package com.example.devk.presentation.ViewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import com.example.devk.data.Dao.NotesDao
 import com.example.devk.data.Database.NotesDatabase
 import com.example.devk.domain.model.Notes
-import com.example.devk.data.Repository.NotesRepository
 
 class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
-    val repository: NotesRepository
+    private val repository: NotesDao
 
     init {
-        val dao = NotesDatabase.getDatabaseInstance((application)).myNotesDao()
-        repository = NotesRepository(dao)
+        repository = NotesDatabase.getDatabaseInstance((application)).myNotesDao()
     }
 
     fun addNotes(notes: Notes) {
+
         repository.insertNotes((notes))
     }
 
-    fun getNotes(): LiveData<List<Notes>> = repository.getAllNotes()
+    fun getNotes(): LiveData<List<Notes>> = repository.getNotes()
 
     fun getHighNotes():LiveData<List<Notes>> =repository.getHighNotes()
 

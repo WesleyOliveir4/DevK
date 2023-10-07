@@ -15,7 +15,7 @@ class AuthModel() {
     private lateinit var auth: FirebaseAuth
     private var id:String = ""
 
-   fun idLogado():String{ return id}
+//   fun idLogado():String{ return id}
 
     fun loginFirebase(activity: Activity ,  listNotes: List<Notes>) {
 
