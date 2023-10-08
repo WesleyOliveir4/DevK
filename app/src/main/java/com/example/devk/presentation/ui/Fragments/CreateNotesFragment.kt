@@ -21,7 +21,7 @@ class CreateNotesFragment : Fragment() {
 
     lateinit var binding: FragmentCreateNotesBinding
     var priority: String = "1"
-    val viewModel: NotesViewModel by viewModels()
+    private val viewModel: NotesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +32,13 @@ class CreateNotesFragment : Fragment() {
         setHasOptionsMenu(true)
 
         binding.btnEditSaveNotes.setOnClickListener {
-            createNotes(it)
+            val title = binding.edtTitle.text.toString()
+            val subTitle = binding.edtSubTitle.text.toString()
+            val notes = binding.edtNotes.text.toString()
+
+            viewModel.createNotes(it,title,subTitle,notes,priority)
+            MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
+            Navigation.findNavController((it!!)).navigate(R.id.action_createNotesFragment3_to_homeFragment)
         }
 
         binding.optGreen.setImageResource(R.drawable.ic_check)
@@ -51,29 +57,6 @@ class CreateNotesFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    private fun createNotes(it: View?) {
-        val title = binding.edtTitle.text.toString()
-        val subTitle = binding.edtSubTitle.text.toString()
-        val notes = binding.edtNotes.text.toString()
-
-        val d = Date()
-        val notesDate: CharSequence = DateFormat.format("d MMMM yyyy", d.time)
-
-        val notesFinish = Notes(
-            id = null,
-            title = title,
-            subTitle = subTitle,
-            notes = notes,
-            date = notesDate as String,
-            priority = priority
-        )
-
-        viewModel.addNotes(notesFinish)
-
-        MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
-        Navigation.findNavController((it!!)).navigate(R.id.action_createNotesFragment3_to_homeFragment)
     }
 
     private fun applyPriorityColor(imgView: ImageView) {
