@@ -2,19 +2,19 @@ package com.example.devk.data.repository
 
 import android.text.format.DateFormat
 import android.view.View
-import com.example.devk.domain.createNotes.CreateNotesUseCase
+import com.example.devk.domain.factoryNotes.FactoryNotesUseCase
 import com.example.devk.domain.model.Notes
 import java.util.*
 
-class CreateNotesUseCaseImpl : CreateNotesUseCase {
+class FactoryNotesUseCaseImpl : FactoryNotesUseCase {
 
-    override fun createNotes(it: View?, title: String, subTitle: String, notes: String, priority: String) : Notes {
+    override fun factoryNotes(it: View?, title: String, subTitle: String, notes: String, priority: String, id: Int?) : Notes {
 
         val d = Date()
         val notesDate: CharSequence = DateFormat.format("d MMMM yyyy", d.time)
 
         return Notes(
-            id = null,
+            id = id,
             title = title,
             subTitle = subTitle,
             notes = notes,
