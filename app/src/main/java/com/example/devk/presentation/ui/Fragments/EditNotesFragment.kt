@@ -2,6 +2,7 @@ package com.example.devk.presentation.ui.Fragments
 
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -70,36 +71,20 @@ class EditNotesFragment: Fragment() {
 
 
         binding.btnEditSaveNotes.setOnClickListener{
-            updateNotes(it)
+
+            viewModel.updateNotes(
+                it,
+                binding.edtTitle.text.toString(),
+                binding.edtSubTitle.text.toString(),
+                binding.edtNotes.text.toString(),
+                priority,
+                oldNotes.data.id!!)
+            MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
+            Navigation.findNavController((it!!)).navigate(R.id.action_editNotesFragment_to_homeFragment)
+
         }
 
         return binding.root
-    }
-
-    private fun updateNotes(it: View?) {
-
-        val title = binding.edtTitle.text.toString()
-        val subTitle = binding.edtSubTitle.text.toString()
-        val notes = binding.edtNotes.text.toString()
-
-        val d = Date()
-        val notesDate: CharSequence = DateFormat.format("d MMMM yyyy", d.time)
-
-        val notesFinish = Notes(
-            oldNotes.data.id,
-            title = title,
-            subTitle = subTitle,
-            notes = notes,
-            date = notesDate as String,
-            priority = priority
-        )
-
-        viewModel.uptadeNotes(notesFinish)
-
-        MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
-        Navigation.findNavController((it!!)).navigate(R.id.action_editNotesFragment_to_homeFragment)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

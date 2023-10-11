@@ -6,22 +6,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.devk.data.Dao.NotesDao
 import com.example.devk.data.Database.NotesDatabase
-import com.example.devk.data.repository.CreateNotesUseCaseImpl
+import com.example.devk.data.repository.FactoryNotesUseCaseImpl
 import com.example.devk.domain.model.Notes
 
 class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: NotesDao
-    private val createNotesUseCase : CreateNotesUseCaseImpl
+    private val factoryNotesUseCase : FactoryNotesUseCaseImpl
 
     init {
         repository = NotesDatabase.getDatabaseInstance((application)).myNotesDao()
-        createNotesUseCase = CreateNotesUseCaseImpl()
-    }
-
-    fun addNotes(notes: Notes) {
-
-        repository.insertNotes((notes))
+        factoryNotesUseCase = FactoryNotesUseCaseImpl()
     }
 
     fun getNotes(): LiveData<List<Notes>> = repository.getNotes()
@@ -36,11 +31,11 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
         repository.deleteNotes(id)
     }
 
-    fun uptadeNotes(notes: Notes) {
-        repository.updateNotes(notes)
+    fun createNotes(it: View?, title: String, subTitle: String, notes: String, priority: String){
+        repository.insertNotes(factoryNotesUseCase.factoryNotes(it,title,subTitle,notes,priority,null))
     }
 
-    fun createNotes(it: View?, title: String, subTitle: String, notes: String, priority: String){
-        addNotes(createNotesUseCase.createNotes(it,title,subTitle,notes,priority))
+    fun updateNotes(it: View?, title: String, subTitle: String, notes: String, priority: String, id: Int){
+        repository.updateNotes(factoryNotesUseCase.factoryNotes(it,title,subTitle,notes,priority,id))
     }
 }
