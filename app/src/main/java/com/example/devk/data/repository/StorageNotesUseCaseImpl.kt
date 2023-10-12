@@ -1,12 +1,13 @@
-package com.example.devk.data.Storage
+package com.example.devk.data.repository
 
 import android.os.Environment
 import com.example.devk.domain.model.Notes
+import com.example.devk.domain.storage.StorageNotesUseCase
 import java.io.File
 
-class StorageFormat() {
+class StorageNotesUseCaseImpl(): StorageNotesUseCase {
     @Throws(Exception::class)
-    fun formatToTXT(listNotes: List<Notes>) {
+    override fun formatToTXT(listNotes: List<Notes>) {
 
         val path = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_DOWNLOADS

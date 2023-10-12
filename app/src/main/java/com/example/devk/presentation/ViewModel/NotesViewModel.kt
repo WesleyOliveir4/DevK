@@ -1,22 +1,28 @@
 package com.example.devk.presentation.ViewModel
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.devk.data.Dao.NotesDao
 import com.example.devk.data.Database.NotesDatabase
+import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.data.repository.FactoryNotesUseCaseImpl
+import com.example.devk.data.repository.StorageNotesUseCaseImpl
 import com.example.devk.domain.model.Notes
 
 class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: NotesDao
     private val factoryNotesUseCase : FactoryNotesUseCaseImpl
+    private val storageNotesUseCase : StorageNotesUseCaseImpl
 
     init {
         repository = NotesDatabase.getDatabaseInstance((application)).myNotesDao()
         factoryNotesUseCase = FactoryNotesUseCaseImpl()
+        storageNotesUseCase = StorageNotesUseCaseImpl()
     }
 
     fun getNotes(): LiveData<List<Notes>> = repository.getNotes()
@@ -38,4 +44,16 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     fun updateNotes(it: View?, title: String, subTitle: String, notes: String, priority: String, id: Int){
         repository.updateNotes(factoryNotesUseCase.factoryNotes(it,title,subTitle,notes,priority,id))
     }
+
+
+    fun writeToFile(listNotes: List<Notes>, context: Context) {
+        try {
+            storageNotesUseCase.formatToTXT(listNotes)
+            MessageBuilder(context).MessageShowTimer("Docs exportados com sucesso",1500)
+        }catch (e: Exception){
+            MessageBuilder(context).MessageShow("Falha na exportação")
+            Log.e("Exception", "Falha na exportação: $e ");
+        }
+    }
+
 }

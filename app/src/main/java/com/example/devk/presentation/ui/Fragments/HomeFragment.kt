@@ -13,7 +13,7 @@ import com.example.devk.data.Firebase.Auth.AuthModel
 import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.domain.model.Notes
 import com.example.devk.R
-import com.example.devk.data.Storage.StorageFormat
+import com.example.devk.data.repository.StorageNotesUseCaseImpl
 import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentHomeBinding
 import com.example.devk.presentation.ui.Adapter.NotesAdapter
@@ -99,8 +99,7 @@ class HomeFragment : Fragment() {
             viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
 
                 textviewYes?.setOnClickListener {
-                    writeToFile(notesList, requireContext())
-
+                    viewModel.writeToFile(notesList, requireContext())
                     bottomSheet.dismiss()
 
                 }
@@ -143,19 +142,18 @@ class HomeFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun writeToFile(data: List<Notes>, context: Context) {
-
-        viewModel.getNotes().observe(viewLifecycleOwner) { listNotes ->
-            try {
-                StorageFormat().formatToTXT(listNotes)
-                MessageBuilder(requireContext()).MessageShowTimer("Docs exportados com sucesso",1500)
-
-            } catch (e: Exception) {
-                MessageBuilder(requireContext()).MessageShow("Falha na exportação")
-                Log.e("Exception", "Falha na exportação: $e ");
-            }
-        }
-    }
+//    private fun writeToFile() {
+//
+//        viewModel.getNotes().observe(viewLifecycleOwner) { listNotes ->
+//            try {
+//                StorageNotesUseCaseImpl().formatToTXT(listNotes)
+//                MessageBuilder(requireContext()).MessageShowTimer("Docs exportados com sucesso",1500)
+//            } catch (e: Exception) {
+//                MessageBuilder(requireContext()).MessageShow("Falha na exportação")
+//                Log.e("Exception", "Falha na exportação: $e ");
+//            }
+//        }
+//    }
 
     private fun pushRecyclerView(listNotes: List<Notes>) {
         binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
