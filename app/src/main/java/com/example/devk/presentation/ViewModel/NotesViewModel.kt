@@ -45,15 +45,8 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
         repository.updateNotes(factoryNotesUseCase.factoryNotes(it,title,subTitle,notes,priority,id))
     }
 
-
-    fun writeToFile(listNotes: List<Notes>, context: Context) {
-        try {
+    fun writeToFile(listNotes: List<Notes>){
             storageNotesUseCase.formatToTXT(listNotes)
-            MessageBuilder(context).MessageShowTimer("Docs exportados com sucesso",1500)
-        }catch (e: Exception){
-            MessageBuilder(context).MessageShow("Falha na exportação")
-            Log.e("Exception", "Falha na exportação: $e ");
-        }
-    }
+   }
 
 }
