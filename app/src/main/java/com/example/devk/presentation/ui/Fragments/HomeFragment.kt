@@ -99,9 +99,14 @@ class HomeFragment : Fragment() {
             viewModel.getNotes().observe(viewLifecycleOwner) { notesList ->
 
                 textviewYes?.setOnClickListener {
-                    viewModel.writeToFile(notesList, requireContext())
+                    try{
+                        viewModel.writeToFile(notesList)
+                        MessageBuilder(requireContext()).MessageShowTimer("Docs exportados com sucesso",1500)
+                    }catch (e: Exception){
+                        MessageBuilder(requireContext()).MessageShow("Falha na exportação")
+                        Log.e("Exception", "Falha na exportação: $e ")
+                    }
                     bottomSheet.dismiss()
-
                 }
             }
 
@@ -141,19 +146,6 @@ class HomeFragment : Fragment() {
 
         return super.onOptionsItemSelected(item)
     }
-
-//    private fun writeToFile() {
-//
-//        viewModel.getNotes().observe(viewLifecycleOwner) { listNotes ->
-//            try {
-//                StorageNotesUseCaseImpl().formatToTXT(listNotes)
-//                MessageBuilder(requireContext()).MessageShowTimer("Docs exportados com sucesso",1500)
-//            } catch (e: Exception) {
-//                MessageBuilder(requireContext()).MessageShow("Falha na exportação")
-//                Log.e("Exception", "Falha na exportação: $e ");
-//            }
-//        }
-//    }
 
     private fun pushRecyclerView(listNotes: List<Notes>) {
         binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
