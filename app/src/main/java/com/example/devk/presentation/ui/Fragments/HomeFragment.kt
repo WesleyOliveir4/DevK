@@ -1,6 +1,5 @@
 package com.example.devk.presentation.ui.Fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -9,13 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.devk.data.Firebase.Auth.AuthModel
 import com.example.devk.data.Message.MessageBuilder
 import com.example.devk.domain.model.Notes
 import com.example.devk.R
-import com.example.devk.data.repository.StorageNotesUseCaseImpl
 import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentHomeBinding
+import com.example.devk.presentation.state.SaveNotesState
 import com.example.devk.presentation.ui.Adapter.NotesAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -128,7 +126,30 @@ class HomeFragment : Fragment() {
 
                 textviewYes?.setOnClickListener {
 
-                    AuthModel().loginFirebase(requireActivity(), notesList)
+                        viewModel.saveRealDatabase(notesList)
+                    viewModel.state.observe(viewLifecycleOwner) { state ->
+                        when (state) {
+                            is SaveNotesState.Loading -> {
+
+                            }
+                            is SaveNotesState.Success -> {
+                                MessageBuilder(requireActivity()).MessageShowTimer(
+                                    "Salvo na cloud com sucesso",
+                                    1500
+                                )
+                            }
+                            is SaveNotesState.Failure -> {
+                                MessageBuilder(requireActivity()).MessageShow("Falha ao salvar")
+                            }
+
+                        }
+                    }
+//                        MessageBuilder(requireActivity()).MessageShowTimer("Salvo na cloud com sucesso",1500)
+//
+//                        MessageBuilder(requireActivity()).MessageShow("Falha ao salvar")
+//                        Log.e("Erro save CloudFirebase", e.toString())
+
+
                     bottomSheet.dismiss()
 
                 }
