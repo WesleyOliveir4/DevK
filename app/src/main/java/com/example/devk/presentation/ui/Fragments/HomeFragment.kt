@@ -13,6 +13,7 @@ import com.example.devk.domain.model.Notes
 import com.example.devk.R
 import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentHomeBinding
+import com.example.devk.presentation.state.SaveNotesState
 import com.example.devk.presentation.ui.Adapter.NotesAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -125,13 +126,29 @@ class HomeFragment : Fragment() {
 
                 textviewYes?.setOnClickListener {
 
-                    try{
                         viewModel.saveRealDatabase(notesList)
-                        MessageBuilder(requireActivity()).MessageShowTimer("Salvo na cloud com sucesso",1500)
-                    }catch (e: Exception){
-                        MessageBuilder(requireActivity()).MessageShow("Falha ao salvar")
-                        Log.e("Erro save CloudFirebase", e.toString())
+                    viewModel.state.observe(viewLifecycleOwner) { state ->
+                        when (state) {
+                            is SaveNotesState.Loading -> {
+
+                            }
+                            is SaveNotesState.Success -> {
+                                MessageBuilder(requireActivity()).MessageShowTimer(
+                                    "Salvo na cloud com sucesso",
+                                    1500
+                                )
+                            }
+                            is SaveNotesState.Failure -> {
+                                MessageBuilder(requireActivity()).MessageShow("Falha ao salvar")
+                            }
+
+                        }
                     }
+//                        MessageBuilder(requireActivity()).MessageShowTimer("Salvo na cloud com sucesso",1500)
+//
+//                        MessageBuilder(requireActivity()).MessageShow("Falha ao salvar")
+//                        Log.e("Erro save CloudFirebase", e.toString())
+
 
                     bottomSheet.dismiss()
 

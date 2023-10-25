@@ -4,6 +4,7 @@ import android.app.Application
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.devk.data.Dao.NotesDao
 import com.example.devk.data.Database.NotesDatabase
@@ -11,6 +12,7 @@ import com.example.devk.data.repository.FactoryNotesUseCaseImpl
 import com.example.devk.data.repository.RealDatabaseUseCaseImpl
 import com.example.devk.data.repository.StorageNotesUseCaseImpl
 import com.example.devk.domain.model.Notes
+import com.example.devk.presentation.state.SaveNotesState
 import kotlinx.coroutines.launch
 
 class NotesViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,6 +21,10 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     private val factoryNotesUseCase : FactoryNotesUseCaseImpl
     private val storageNotesUseCase : StorageNotesUseCaseImpl
     private val realDatabaseUseCase : RealDatabaseUseCaseImpl
+
+        private val _state by lazy { MutableLiveData<SaveNotesState<Boolean>>() }
+        val state: LiveData<SaveNotesState<Boolean>> get()= _state
+
 
     init {
         repository = NotesDatabase.getDatabaseInstance((application)).myNotesDao()
@@ -53,7 +59,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     @Throws(Exception::class)
     fun saveRealDatabase(listNotes: List<Notes>){
         viewModelScope.launch {
-           realDatabaseUseCase.saveNotesDB(listNotes)
+           realDatabaseUseCase.saveNotesDB(listNotes, {_state.value = it } )
         }
     }
 
