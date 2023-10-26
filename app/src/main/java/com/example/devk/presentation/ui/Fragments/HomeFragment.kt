@@ -144,11 +144,6 @@ class HomeFragment : Fragment() {
 
                         }
                     }
-//                        MessageBuilder(requireActivity()).MessageShowTimer("Salvo na cloud com sucesso",1500)
-//
-//                        MessageBuilder(requireActivity()).MessageShow("Falha ao salvar")
-//                        Log.e("Erro save CloudFirebase", e.toString())
-
 
                     bottomSheet.dismiss()
 
