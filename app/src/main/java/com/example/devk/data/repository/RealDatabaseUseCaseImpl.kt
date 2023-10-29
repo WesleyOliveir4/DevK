@@ -16,23 +16,22 @@ class RealDatabaseUseCaseImpl(): RealDatabaseUseCase {
     private lateinit var auth: FirebaseAuth
 
     @Throws(Exception::class)
-    override suspend fun saveNotesDB(notes: List<Notes>, result: (SaveNotesState<Boolean>) -> Unit) {
+    override fun saveNotesDB(notes: List<Notes>, result: (SaveNotesState<String>) -> Unit) {
         auth = Firebase.auth
 
      auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener {
                 task ->
 
             if (task.isSuccessful){
-                result.invoke(SaveNotesState.Success(true))
+                result.invoke(SaveNotesState.Success("Logado com sucesso"))
                 // Sign in success, update UI with the signed-in user's information
                 Log.d(ContentValues.TAG, "Logado com sucesso")
                 FirebaseDatabase.getInstance().reference.child("Docs").child(auth.uid!!).setValue(notes)
 
             }else{
                 // If sign in fails, display a message to the user.
-                result.invoke(SaveNotesState.Failure(true))
+                result.invoke(SaveNotesState.Failure(task.exception?.message.toString()))
                 Log.e(ContentValues.TAG, "Erro ao logar", task.exception)
-//                throw Exception("Falha ao salvar",task.exception)
             }
 
         }
