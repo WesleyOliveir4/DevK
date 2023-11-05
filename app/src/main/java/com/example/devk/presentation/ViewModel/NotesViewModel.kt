@@ -22,8 +22,8 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     private val storageNotesUseCase : StorageNotesUseCaseImpl
     private val realDatabaseUseCase : RealDatabaseUseCaseImpl
 
-        private val _state by lazy { MutableLiveData<SaveNotesState<String>>() }
-        val state: LiveData<SaveNotesState<String>> get()= _state
+        private val _stateSaveNote by lazy { MutableLiveData<SaveNotesState<String>>() }
+        val stateSaveNote: LiveData<SaveNotesState<String>> get()= _stateSaveNote
 
 
     init {
@@ -58,7 +58,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
    }
     @Throws(Exception::class)
     fun saveRealDatabase(listNotes: List<Notes>){
-           realDatabaseUseCase.saveNotesDB(listNotes, {_state.value = it } )
+           realDatabaseUseCase.saveNotesDB(listNotes, {_stateSaveNote.value = it } )
     }
 
 }
