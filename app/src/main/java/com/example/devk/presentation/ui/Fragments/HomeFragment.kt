@@ -127,8 +127,8 @@ class HomeFragment : Fragment() {
                 textviewYes?.setOnClickListener {
 
                         viewModel.saveRealDatabase(notesList)
-                    viewModel.state.observe(viewLifecycleOwner) { state ->
-                        when (state) {
+                    viewModel.stateSaveNote.observe(viewLifecycleOwner) { stateSaveNote ->
+                        when (stateSaveNote) {
                             is SaveNotesState.Loading -> {
 
                             }
