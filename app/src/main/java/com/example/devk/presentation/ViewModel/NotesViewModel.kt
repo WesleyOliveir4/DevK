@@ -12,6 +12,7 @@ import com.example.devk.data.repository.FactoryNotesUseCaseImpl
 import com.example.devk.data.repository.RealDatabaseUseCaseImpl
 import com.example.devk.data.repository.StorageNotesUseCaseImpl
 import com.example.devk.domain.model.Notes
+import com.example.devk.presentation.state.CreateNotesState
 import com.example.devk.presentation.state.SaveNotesState
 import kotlinx.coroutines.launch
 
@@ -24,6 +25,9 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
         private val _stateSaveNote by lazy { MutableLiveData<SaveNotesState<String>>() }
         val stateSaveNote: LiveData<SaveNotesState<String>> get()= _stateSaveNote
+
+        private val _stateCreateNotes by lazy { MutableLiveData<CreateNotesState<String>>() }
+        val stateCreateNotes: LiveData<CreateNotesState<String>> get()= _stateCreateNotes
 
 
     init {
@@ -46,7 +50,12 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun createNotes(it: View?, title: String, subTitle: String, notes: String, priority: String){
-        repository.insertNotes(factoryNotesUseCase.factoryNotes(it,title,subTitle,notes,priority,null))
+        if(title.isNotEmpty() || subTitle.isNotEmpty() || notes.isNotEmpty() ){
+            repository.insertNotes(factoryNotesUseCase.factoryNotes(it,title,subTitle,notes,priority,null))
+            _stateCreateNotes.postValue(CreateNotesState.Success("Nota criada"))
+        }else{
+            _stateCreateNotes.postValue(CreateNotesState.Failure("Falha ao salvar, nota vazia"))
+        }
     }
 
     fun updateNotes(it: View?, title: String, subTitle: String, notes: String, priority: String, id: Int){
