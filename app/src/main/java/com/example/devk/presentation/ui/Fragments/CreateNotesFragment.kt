@@ -15,6 +15,8 @@ import com.example.devk.domain.model.Notes
 import com.example.devk.R
 import com.example.devk.presentation.ViewModel.NotesViewModel
 import com.example.devk.databinding.FragmentCreateNotesBinding
+import com.example.devk.presentation.state.CreateNotesState
+import com.example.devk.presentation.state.SaveNotesState
 import java.util.*
 
 class CreateNotesFragment : Fragment() {
@@ -37,8 +39,27 @@ class CreateNotesFragment : Fragment() {
             val notes = binding.edtNotes.text.toString()
 
             viewModel.createNotes(it,title,subTitle,notes,priority)
-            MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
-            Navigation.findNavController((it!!)).navigate(R.id.action_createNotesFragment3_to_homeFragment)
+            viewModel.stateCreateNotes.observe(viewLifecycleOwner){ stateCreateNotes ->
+                when (stateCreateNotes) {
+                    is CreateNotesState.Loading -> {
+
+                    }
+                    is CreateNotesState.Success -> {
+                        Navigation.findNavController((it!!)).navigate(R.id.action_createNotesFragment3_to_homeFragment)
+                        MessageBuilder(requireContext()).MessageShowTimer(
+                            "Documento salvo",
+                            1500
+                        )
+                    }
+                    is CreateNotesState.Failure -> {
+                        MessageBuilder(requireActivity()).MessageShow(stateCreateNotes.error)
+                    }
+
+                }
+
+            }
+
+
         }
 
         binding.optGreen.setImageResource(R.drawable.ic_check)

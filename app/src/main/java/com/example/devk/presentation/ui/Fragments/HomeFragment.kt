@@ -87,8 +87,7 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if (item.title == "Exportar") {
-            val bottomSheet: BottomSheetDialog =
-                BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
+            val bottomSheet = BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
             bottomSheet.setContentView(R.layout.dialog_export)
 
             val textviewYes = bottomSheet.findViewById<TextView>(R.id.dialog_yes)
@@ -115,8 +114,7 @@ class HomeFragment : Fragment() {
             bottomSheet.show()
         } else if (item.title == "CloudFirebase") {
 
-            val bottomSheet: BottomSheetDialog =
-                BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
+            val bottomSheet = BottomSheetDialog(requireContext(), R.style.BottomSheetStyle)
             bottomSheet.setContentView(R.layout.dialog_cloud)
 
             val textviewYes = bottomSheet.findViewById<TextView>(R.id.dialog_yes)
@@ -165,6 +163,6 @@ class HomeFragment : Fragment() {
 
     private fun pushRecyclerView(listNotes: List<Notes>) {
         binding.rcvAllNotes.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.rcvAllNotes.adapter = NotesAdapter(requireContext(), listNotes)
+        binding.rcvAllNotes.adapter = NotesAdapter(listNotes)
     }
 }
