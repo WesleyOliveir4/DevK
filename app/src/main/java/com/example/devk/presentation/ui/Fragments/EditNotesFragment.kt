@@ -71,16 +71,23 @@ class EditNotesFragment: Fragment() {
 
 
         binding.btnEditSaveNotes.setOnClickListener{
+            try {
+                viewModel.updateNotes(
+                    it,
+                    binding.edtTitle.text.toString(),
+                    binding.edtSubTitle.text.toString(),
+                    binding.edtNotes.text.toString(),
+                    priority,
+                    oldNotes.data.id!!)
 
-            viewModel.updateNotes(
-                it,
-                binding.edtTitle.text.toString(),
-                binding.edtSubTitle.text.toString(),
-                binding.edtNotes.text.toString(),
-                priority,
-                oldNotes.data.id!!)
-            MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
-            Navigation.findNavController((it!!)).navigate(R.id.action_editNotesFragment_to_homeFragment)
+                MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
+                Navigation.findNavController((it!!)).navigate(R.id.action_editNotesFragment_to_homeFragment)
+            }catch (e: Exception){
+                Log.e("exception in editSaveNotesListener ","$e")
+                MessageBuilder(requireContext()).MessageShow("Erro ao salvar!")
+            }
+
+            
 
         }
 
