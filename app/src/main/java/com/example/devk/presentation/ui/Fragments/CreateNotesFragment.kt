@@ -47,7 +47,7 @@ class CreateNotesFragment : Fragment() {
                     is CreateNotesState.Success -> {
                         Navigation.findNavController((it!!)).navigate(R.id.action_createNotesFragment3_to_homeFragment)
                         MessageBuilder(requireContext()).MessageShowTimer(
-                            "Documento salvo",
+                            R.string.create_notes_success.toString(),
                             1500
                         )
                     }
