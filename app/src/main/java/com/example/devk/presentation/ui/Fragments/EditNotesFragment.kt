@@ -80,14 +80,12 @@ class EditNotesFragment: Fragment() {
                     priority,
                     oldNotes.data.id!!)
 
-                MessageBuilder(requireContext()).MessageShowTimer("Documento salvo",1500)
+                MessageBuilder(requireContext()).MessageShowTimer(R.string.update_notes_success.toString(),1500)
                 Navigation.findNavController((it!!)).navigate(R.id.action_editNotesFragment_to_homeFragment)
             }catch (e: Exception){
                 Log.e("exception in editSaveNotesListener ","$e")
-                MessageBuilder(requireContext()).MessageShow("Erro ao salvar!")
+                MessageBuilder(requireContext()).MessageShow(R.string.update_notes_failure.toString())
             }
-
-            
 
         }
 
@@ -116,8 +114,9 @@ class EditNotesFragment: Fragment() {
             val textviewNo=bottomSheet.findViewById<TextView>(R.id.dialog_no)
 
             textviewYes?.setOnClickListener{
+                //inserir trycatch
                 viewModel.deleteNotes(oldNotes.data.id!!)
-                MessageBuilder(requireContext()).MessageShowTimer("Doc deletado com sucesso",1500)
+                MessageBuilder(requireContext()).MessageShowTimer(R.string.delete_notes_success.toString(),1500)
                 bottomSheet.dismiss()
                 requireActivity().onBackPressed()
             }

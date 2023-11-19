@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">DevK</string>
+    <string name="create_notes_success">Documento salvo</string>
+    <string name="delete_notes_success">Doc deletado com sucesso</string>
+    <string name="update_notes_success">Documento salvo</string>
+    <string name="update_notes_failure">Erro ao salvar!</string>
+    <string name="save_notes_firebase_success">Salvo na cloud com sucesso</string>
+    <string name="save_notes_firebase_failure">Falha ao salvar</string>
+    <string name="save_notes_storage_success">Docs exportados com sucesso</string>
+    <string name="save_notes_storage_failure">Falha na exportação</string>
+
+
+    <string name="state_create_notes_success">Nota criada</string>
+    <string name="state_create_notes_failure">Falha ao salvar, nota vazia</string>
+
+    <string name="realDatabase_login_success">Logado com sucesso</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

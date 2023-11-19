@@ -2,6 +2,7 @@ package com.example.devk.data.repository
 
 import android.content.ContentValues
 import android.util.Log
+import com.example.devk.R
 import com.example.devk.domain.model.Notes
 import com.example.devk.domain.firebase.realDatabase.RealDatabaseUseCase
 import com.example.devk.presentation.state.SaveNotesState
@@ -23,7 +24,7 @@ class RealDatabaseUseCaseImpl(): RealDatabaseUseCase {
                 task ->
 
             if (task.isSuccessful){
-                result.invoke(SaveNotesState.Success("Logado com sucesso"))
+                result.invoke(SaveNotesState.Success(R.string.realDatabase_login_success.toString()))
                 // Sign in success, update UI with the signed-in user's information
                 Log.d(ContentValues.TAG, "Logado com sucesso")
                 FirebaseDatabase.getInstance().reference.child("Docs").child(auth.uid!!).setValue(notes)
