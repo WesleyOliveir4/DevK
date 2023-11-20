@@ -53,9 +53,9 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     fun createNotes(it: View?, title: String, subTitle: String, notes: String, priority: String){
         if(title.isNotEmpty() || subTitle.isNotEmpty() || notes.isNotEmpty() ){
             repository.insertNotes(factoryNotesUseCase.factoryNotes(it,title,subTitle,notes,priority,null))
-            _stateCreateNotes.postValue(CreateNotesState.Success(R.string.state_create_notes_success.toString()))
+            _stateCreateNotes.postValue(CreateNotesState.Success("Nota criada"))
         }else{
-            _stateCreateNotes.postValue(CreateNotesState.Failure(R.string.state_create_notes_failure.toString()))
+            _stateCreateNotes.postValue(CreateNotesState.Failure("Falha ao salvar, nota vazia"))
         }
     }
 

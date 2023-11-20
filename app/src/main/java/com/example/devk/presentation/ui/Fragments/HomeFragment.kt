@@ -98,9 +98,9 @@ class HomeFragment : Fragment() {
                 textviewYes?.setOnClickListener {
                     try{
                         viewModel.writeToFile(notesList)
-                        MessageBuilder(requireContext()).MessageShowTimer(R.string.save_notes_storage_success.toString(),1500)
+                        MessageBuilder(requireContext()).MessageShowTimer(getString(R.string.save_notes_storage_success),1500)
                     }catch (e: Exception){
-                        MessageBuilder(requireContext()).MessageShow(R.string.save_notes_storage_failure.toString())
+                        MessageBuilder(requireContext()).MessageShow(getString(R.string.save_notes_storage_failure))
                         Log.e("Exception", "Falha na exportação: $e ")
                     }
                     bottomSheet.dismiss()
@@ -132,12 +132,12 @@ class HomeFragment : Fragment() {
                             }
                             is SaveNotesState.Success -> {
                                 MessageBuilder(requireActivity()).MessageShowTimer(
-                                    R.string.save_notes_firebase_success.toString(),
+                                    getString(R.string.save_notes_firebase_success),
                                     1500
                                 )
                             }
                             is SaveNotesState.Failure -> {
-                                MessageBuilder(requireActivity()).MessageShow(R.string.save_notes_firebase_failure.toString())
+                                MessageBuilder(requireActivity()).MessageShow(getString(R.string.save_notes_firebase_failure))
                             }
 
                         }

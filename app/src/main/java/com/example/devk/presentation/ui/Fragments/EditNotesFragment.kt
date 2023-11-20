@@ -80,11 +80,11 @@ class EditNotesFragment: Fragment() {
                     priority,
                     oldNotes.data.id!!)
 
-                MessageBuilder(requireContext()).MessageShowTimer(R.string.update_notes_success.toString(),1500)
+                MessageBuilder(requireContext()).MessageShowTimer( getString(R.string.update_notes_success),1500)
                 Navigation.findNavController((it!!)).navigate(R.id.action_editNotesFragment_to_homeFragment)
             }catch (e: Exception){
                 Log.e("exception in editSaveNotesListener ","$e")
-                MessageBuilder(requireContext()).MessageShow(R.string.update_notes_failure.toString())
+                MessageBuilder(requireContext()).MessageShow(getString(R.string.update_notes_failure))
             }
 
         }
@@ -116,7 +116,7 @@ class EditNotesFragment: Fragment() {
             textviewYes?.setOnClickListener{
                 //inserir trycatch
                 viewModel.deleteNotes(oldNotes.data.id!!)
-                MessageBuilder(requireContext()).MessageShowTimer(R.string.delete_notes_success.toString(),1500)
+                MessageBuilder(requireContext()).MessageShowTimer(getString(R.string.delete_notes_success),1500)
                 bottomSheet.dismiss()
                 requireActivity().onBackPressed()
             }

@@ -24,7 +24,7 @@ class RealDatabaseUseCaseImpl(): RealDatabaseUseCase {
                 task ->
 
             if (task.isSuccessful){
-                result.invoke(SaveNotesState.Success(R.string.realDatabase_login_success.toString()))
+                result.invoke(SaveNotesState.Success("Logado com sucesso"))
                 // Sign in success, update UI with the signed-in user's information
                 Log.d(ContentValues.TAG, "Logado com sucesso")
                 FirebaseDatabase.getInstance().reference.child("Docs").child(auth.uid!!).setValue(notes)
