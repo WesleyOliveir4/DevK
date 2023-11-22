@@ -114,11 +114,15 @@ class EditNotesFragment: Fragment() {
             val textviewNo=bottomSheet.findViewById<TextView>(R.id.dialog_no)
 
             textviewYes?.setOnClickListener{
-                //inserir trycatch
-                viewModel.deleteNotes(oldNotes.data.id!!)
-                MessageBuilder(requireContext()).MessageShowTimer(getString(R.string.delete_notes_success),1500)
-                bottomSheet.dismiss()
-                requireActivity().onBackPressed()
+               try{
+                   viewModel.deleteNotes(oldNotes.data.id!!)
+                   MessageBuilder(requireContext()).MessageShowTimer(getString(R.string.delete_notes_success),1500)
+                   bottomSheet.dismiss()
+                   requireActivity().onBackPressed()
+               }catch(e: Exception){
+                   MessageBuilder(requireContext()).MessageShow(getString(R.string.delete_notes_failure))
+               }
+
             }
             textviewNo?.setOnClickListener{
                 bottomSheet.dismiss()

@@ -2,6 +2,7 @@
     <string name="app_name">DevK</string>
     <string name="create_notes_success">Documento salvo</string>
     <string name="delete_notes_success">Doc deletado com sucesso</string>
+    <string name="delete_notes_failure">Ocorreu um erro!</string>
     <string name="update_notes_success">Documento salvo</string>
     <string name="update_notes_failure">Erro ao salvar!</string>
     <string name="save_notes_firebase_success">Salvo na cloud com sucesso</string>
