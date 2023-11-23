@@ -2,6 +2,7 @@ package com.example.devk.data.repository
 
 import android.content.ContentValues
 import android.util.Log
+import com.example.devk.BuildConfig
 import com.example.devk.R
 import com.example.devk.domain.model.Notes
 import com.example.devk.domain.firebase.realDatabase.RealDatabaseUseCase
@@ -15,12 +16,14 @@ import kotlinx.coroutines.tasks.await
 class RealDatabaseUseCaseImpl(): RealDatabaseUseCase {
 
     private lateinit var auth: FirebaseAuth
+    private val firebaseEmail = BuildConfig.FirebaseEmail
+    private val firebasePassword = BuildConfig.FirebasePassword
 
     @Throws(Exception::class)
     override fun saveNotesDB(notes: List<Notes>, result: (SaveNotesState<String>) -> Unit) {
         auth = Firebase.auth
 
-     auth.signInWithEmailAndPassword("wlwwesley9@gmail.com","123456").addOnCompleteListener {
+     auth.signInWithEmailAndPassword(firebaseEmail,firebasePassword).addOnCompleteListener {
                 task ->
 
             if (task.isSuccessful){
